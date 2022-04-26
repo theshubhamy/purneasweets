@@ -1,4 +1,6 @@
 import React from "react";
+import Card from "../UI/Card";
+import MealItem from "./MealItem/MealItem";
 const DUMMYMEALS = [
   {
     id: "m1",
@@ -27,15 +29,20 @@ const DUMMYMEALS = [
 ];
 const AvailabeMeals = () => {
   return (
-    <div>
-      {DUMMYMEALS.map((data) => (
-        <li key={data.id}>
-          <p>{data.name}</p>
-          <p>{data.description}</p>
-          <p>{data.price}</p>
-        </li>
-      ))}
-    </div>
+    <section className="max-w-5xl w-11/12 mx-auto my-8 ">
+      <Card>
+        <ul>
+          {DUMMYMEALS.map((meal) => (
+            <MealItem
+              key={meal.id}
+              name={meal.name}
+              description={meal.description}
+              price={meal.price}
+            ></MealItem>
+          ))}
+        </ul>
+      </Card>
+    </section>
   );
 };
 
