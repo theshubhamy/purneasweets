@@ -1,23 +1,20 @@
-import { Fragment } from "react";
+import { Fragment, useContext } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
-
-const cartItems = [
-  {
-    id: "c1",
-    name: "Barbecue Burger",
-    quantity: 2,
-    price: 12.99,
-  },
-  {
-    id: "c2",
-    name: "Green Bowl",
-    quantity: 1,
-    price: 18.99,
-  },
-];
+import CartContext from "../../store/CartContext";
 
 const Cart = (props) => {
+  const context = useContext(CartContext);
+  const cartItems = context.item;
+  const totalAmount = context.totalAmount.toFixed(2);
+  const CartHasItem = context.item.length > 0;
+  const cartItemRemoveHandler = (id) => {
+    context.removeItem(id);
+  };
+  const cartItemAddHandler = (item) => {
+    context.addItem(item);
+  };
+
   return (
     <Transition appear show={props.isShow} as={Fragment}>
       <Dialog
@@ -71,12 +68,12 @@ const Cart = (props) => {
                     <div className="mt-8">
                       <div className="flow-root">
                         <ul className="-my-6 divide-y divide-gray-200">
-                          {cartItems.map((item) => (
+                          {cartItems?.map((item) => (
                             <li key={item.id} className="flex py-6">
                               <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                 <img
-                                  src={item.imageSrc}
-                                  alt={item.imageAlt}
+                                  src={item.images}
+                                  alt={item.images}
                                   className="h-full w-full object-cover object-center"
                                 />
                               </div>
@@ -87,19 +84,59 @@ const Cart = (props) => {
                                     <h3>
                                       <p> {item.name} </p>
                                     </h3>
-                                    <p className="ml-4">{item.price}</p>
+                                    <p className="ml-4">
+                                      ${item.price.toFixed(2)}
+                                    </p>
                                   </div>
                                 </div>
                                 <div className="flex flex-1 items-end justify-between text-sm">
-                                  <p className="text-gray-700">
-                                    Qty {item.quantity}
+                                  <p className="text-gray-900 text-base justify-center items-center font-semibold">
+                                    Qty : {item.amount}
                                   </p>
-                                  <div className="flex">
+                                  <div className="flex justify-around shadow-lg rounded-md text-white font-bold bg-indigo-600 space-x-4 px-4 py-2 ">
+                                    {/* remove button */}
                                     <button
                                       type="button"
-                                      className="font-medium text-red-500 hover:text-indigo-500"
+                                      onClick={cartItemRemoveHandler.bind(
+                                        null,
+                                        item.id
+                                      )}
+                                      className="font-medium"
                                     >
-                                      Remove
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="h-5 w-5"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor"
+                                      >
+                                        <path
+                                          fillRule="evenodd"
+                                          d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z"
+                                          clipRule="evenodd"
+                                        />
+                                      </svg>
+                                    </button>
+                                    {/* add button */}
+                                    <button
+                                      type="button"
+                                      onClick={cartItemAddHandler.bind(
+                                        null,
+                                        item
+                                      )}
+                                      className="font-medium"
+                                    >
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="h-5 w-5"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor"
+                                      >
+                                        <path
+                                          fillRule="evenodd"
+                                          d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                                          clipRule="evenodd"
+                                        />
+                                      </svg>
                                     </button>
                                   </div>
                                 </div>
@@ -113,17 +150,19 @@ const Cart = (props) => {
 
                   <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
                     <div className="flex justify-between text-base font-medium text-gray-900">
-                      <p>Subtotal</p>
-                      <p>$262.00</p>
+                      <p>Total Amount</p>
+                      <p>${totalAmount}</p>
                     </div>
                     <p className="mt-0.5 text-sm text-gray-500">
                       Shipping and taxes calculated at checkout.
                     </p>
-                    <div className="mt-6">
-                      <button className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">
-                        Checkout
-                      </button>
-                    </div>
+                    {CartHasItem && (
+                      <div className="mt-6">
+                        <button className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">
+                          Checkout
+                        </button>
+                      </div>
+                    )}
                     <div className="mt-6 flex justify-center text-center text-lg text-gray-500">
                       <p>
                         or{" "}

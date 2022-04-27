@@ -1,6 +1,6 @@
 import React from "react";
 import MealsSummry from "./MealsSummry";
-import AvailabeMeals from "./AvailabeMeals";
+import AvailableMeals from "./AvailableMeals";
 import mealsImage from "../../assets/meals.jpg";
 const Meals = () => {
   return (
@@ -13,7 +13,7 @@ const Meals = () => {
         />
       </div>
       <MealsSummry />
-      <AvailabeMeals />
+      <AvailableMeals />
     </>
   );
 };

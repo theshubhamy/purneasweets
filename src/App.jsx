@@ -1,10 +1,13 @@
 import React from "react";
 import Home from "./components/Layout/Home";
+import CartProvider from "./store/CartProvider";
 
 const App = () => {
   return (
     <React.StrictMode>
-      <Home />
+      <CartProvider>
+        <Home />
+      </CartProvider>
     </React.StrictMode>
   );
 };

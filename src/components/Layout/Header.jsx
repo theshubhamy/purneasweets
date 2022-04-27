@@ -10,7 +10,7 @@ const navigation = [
   { name: "Dashboard", href: "#", current: true },
   { name: "Team", href: "#", current: false },
   { name: "Projects", href: "#", current: false },
-  { name: "Calendar", href: "#", current: false },
+  { name: "about", href: "#", current: false },
   { name: "Reports", href: "#", current: false },
 ];
 const userNavigation = [
@@ -27,18 +27,18 @@ export default function Header(props) {
   return (
     <>
       <div className="min-h-full">
-        <Disclosure as="nav" className="bg-gray-800">
+        <Disclosure as="nav" className="bg-indigo-400">
           {({ open }) => (
             <>
               <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
-                      <h1 className="text-2xl text-white shadow-md font-bold font-sans">
+                      <h1 className="text-2xl text-white  font-bold font-sans">
                         Purnea Sweets
                       </h1>
                     </div>
-                    <div className="hidden md:block">
+                    <div className="hidden ">
                       <div className="ml-10 flex items-baseline space-x-4">
                         {navigation.map((item) => (
                           <a
@@ -120,7 +120,7 @@ export default function Header(props) {
                 </div>
               </div>
 
-              <Disclosure.Panel className="md:hidden">
+              <Disclosure.Panel className="hidden">
                 <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                   {navigation.map((item) => (
                     <Disclosure.Button

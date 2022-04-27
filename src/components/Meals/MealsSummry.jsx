@@ -3,7 +3,7 @@ import React from "react";
 const MealsSummry = () => {
   return (
     <div className="flex justify-center items-center my-5">
-      <section className=" text-center max-w-2xl w-11/12 m-auto -mt-40 relative bg-gray-700 text-white rounded-xl p-4 shadow-xl space-y-4">
+      <section className=" text-center max-w-2xl w-11/12 m-auto -mt-36 relative bg-white text-gray-900 rounded-xl p-4 shadow-2xl space-y-4">
         <h1 className=" font-semibold text-3xl">
           Delicious Food, Delivered to You
         </h1>

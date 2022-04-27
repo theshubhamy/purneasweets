@@ -63,11 +63,11 @@ const DUMMYMEALS = [
     price: 18.99,
   },
 ];
-const AvailabeMeals = () => {
+const AvailableMeals = () => {
   return (
-    <div className="bg-white">
-      <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
-        <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+    <div className="bg-white cursor-pointer">
+      <div className="max-w-full mx-auto lg:py-16 px-4 sm:py-24 sm:px-6  lg:px-8">
+        <div className=" grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {DUMMYMEALS?.map((meal) => (
             <MealItem
               id={meal.id}
@@ -76,7 +76,7 @@ const AvailabeMeals = () => {
               imageSrc={meal.images}
               description={meal.description}
               price={meal.price}
-            ></MealItem>
+            />
           ))}
         </div>
       </div>
@@ -84,4 +84,4 @@ const AvailabeMeals = () => {
   );
 };
 
-export default AvailabeMeals;
+export default AvailableMeals;
