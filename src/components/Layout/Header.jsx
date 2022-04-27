@@ -1,15 +1,10 @@
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import {
-  
-  MenuIcon,
-  XIcon,
-  UserCircleIcon,
-} from "@heroicons/react/outline";
+import { MenuIcon, XIcon, UserCircleIcon } from "@heroicons/react/outline";
 import HeaderCartButton from "./HeaderCartButton";
 const user = {
   name: "Shubham",
-  email: "tom@example.com",
+  email: "shubham@gmail.com",
 };
 const navigation = [
   { name: "Dashboard", href: "#", current: true },
@@ -28,7 +23,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Header() {
+export default function Header(props) {
   return (
     <>
       <div className="min-h-full">
@@ -65,7 +60,7 @@ export default function Header() {
                   </div>
                   <div className="hidden md:block">
                     <div className="ml-4 flex items-center md:ml-6">
-                      <HeaderCartButton />
+                      <HeaderCartButton onClick={props.onShowCart} />
                       {/* Profile dropdown */}
                       <Menu as="div" className="ml-3 relative">
                         <div>
@@ -108,6 +103,7 @@ export default function Header() {
                     </div>
                   </div>
                   <div className="-mr-2 flex md:hidden">
+                    <HeaderCartButton onClick={props.onShowCart} />
                     {/* Mobile menu button */}
                     <Disclosure.Button className="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                       <span className="sr-only">Open main menu</span>
@@ -159,7 +155,6 @@ export default function Header() {
                         {user.email}
                       </div>
                     </div>
-                    <HeaderCartButton />
                   </div>
                   <div className="mt-3 px-2 space-y-1">
                     {userNavigation.map((item) => (

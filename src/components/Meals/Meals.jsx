@@ -1,7 +1,7 @@
 import React from "react";
 import MealsSummry from "./MealsSummry";
 import AvailabeMeals from "./AvailabeMeals";
-import mealsImage from ".././assets/meals.jpg";
+import mealsImage from "../../assets/meals.jpg";
 const Meals = () => {
   return (
     <>
