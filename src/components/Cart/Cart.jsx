@@ -1,20 +1,13 @@
-import { Fragment, useContext } from "react";
+import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
-import CartContext from "../../store/CartContext";
+import CartItem from "./CartItem";
+import { useSelector } from "react-redux";
 
 const Cart = (props) => {
-  const context = useContext(CartContext);
-  const cartItems = context.item;
-  const totalAmount = context.totalAmount.toFixed(2);
-  const CartHasItem = context.item.length > 0;
-  const cartItemRemoveHandler = (id) => {
-    context.removeItem(id);
-  };
-  const cartItemAddHandler = (item) => {
-    context.addItem(item);
-  };
-
+  const cartItems = useSelector((state) => state.cart.items);
+  console.table(cartItems);
+  const CartHasItem = cartItems.length > 0;
   return (
     <Transition appear show={props.isShow} as={Fragment}>
       <Dialog
@@ -69,89 +62,26 @@ const Cart = (props) => {
                       <div className="flow-root">
                         <ul className="-my-6 divide-y divide-gray-200">
                           {cartItems?.map((item) => (
-                            <li key={item.id} className="flex py-6">
-                              <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                <img
-                                  src={item.images}
-                                  alt={item.images}
-                                  className="h-full w-full object-cover object-center"
-                                />
-                              </div>
-
-                              <div className="ml-4 flex flex-1 flex-col">
-                                <div>
-                                  <div className="flex justify-between text-base font-medium text-gray-900">
-                                    <h3>
-                                      <p> {item.name} </p>
-                                    </h3>
-                                    <p className="ml-4">
-                                      ${item.price.toFixed(2)}
-                                    </p>
-                                  </div>
-                                </div>
-                                <div className="flex flex-1 items-end justify-between text-sm">
-                                  <p className="text-gray-900 text-base justify-center items-center font-semibold">
-                                    Qty : {item.amount}
-                                  </p>
-                                  <div className="flex justify-around shadow-lg rounded-md text-white font-bold bg-indigo-600 space-x-4 px-4 py-2 ">
-                                    {/* remove button */}
-                                    <button
-                                      type="button"
-                                      onClick={cartItemRemoveHandler.bind(
-                                        null,
-                                        item.id
-                                      )}
-                                      className="font-medium"
-                                    >
-                                      <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="h-5 w-5"
-                                        viewBox="0 0 20 20"
-                                        fill="currentColor"
-                                      >
-                                        <path
-                                          fillRule="evenodd"
-                                          d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z"
-                                          clipRule="evenodd"
-                                        />
-                                      </svg>
-                                    </button>
-                                    {/* add button */}
-                                    <button
-                                      type="button"
-                                      onClick={cartItemAddHandler.bind(
-                                        null,
-                                        item
-                                      )}
-                                      className="font-medium"
-                                    >
-                                      <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="h-5 w-5"
-                                        viewBox="0 0 20 20"
-                                        fill="currentColor"
-                                      >
-                                        <path
-                                          fillRule="evenodd"
-                                          d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                                          clipRule="evenodd"
-                                        />
-                                      </svg>
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                            </li>
+                            <CartItem
+                              key={item.id}
+                              item={{
+                                id: item.id,
+                                name: item.name,
+                                quantity: item.quantity,
+                                totalPrice: item.totalPrice,
+                                price: item.price,
+                                imageSrc: item.imageSrc,
+                              }}
+                            />
                           ))}
                         </ul>
                       </div>
                     </div>
                   </div>
-
                   <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
                     <div className="flex justify-between text-base font-medium text-gray-900">
                       <p>Total Amount</p>
-                      <p>${totalAmount}</p>
+                      {/* <p>${TotalPrice || "00.00"}</p> */}
                     </div>
                     <p className="mt-0.5 text-sm text-gray-500">
                       Shipping and taxes calculated at checkout.
