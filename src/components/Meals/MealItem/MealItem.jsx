@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { cartActions } from "../../../store/redux/cart-slice";
 
 const MealItem = (props) => {
+  
   const dispatch = useDispatch();
   const { id, name, imageSrc, description, price } = props;
   const addToCartHandler = () => {

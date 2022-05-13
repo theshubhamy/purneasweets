@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 const Cart = (props) => {
   const cartItems = useSelector((state) => state.cart.items);
-  console.table(cartItems);
+  const TotalAmount = useSelector((state) => state.cart.totalAmount);
   const CartHasItem = cartItems.length > 0;
   return (
     <Transition appear show={props.isShow} as={Fragment}>
@@ -79,9 +79,9 @@ const Cart = (props) => {
                     </div>
                   </div>
                   <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
-                    <div className="flex justify-between text-base font-medium text-gray-900">
+                    <div className="flex justify-between text-lg font-medium text-indigo-600 ">
                       <p>Total Amount</p>
-                      {/* <p>${TotalPrice || "00.00"}</p> */}
+                      <p>${TotalAmount.toFixed(2)}</p>
                     </div>
                     <p className="mt-0.5 text-sm text-gray-500">
                       Shipping and taxes calculated at checkout.
